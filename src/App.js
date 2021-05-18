@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import {Switch,Route,Link} from 'react-router-dom'
 import Display from "./components/display"
+import Form from "./components/form"
 import './App.css';
 
 function App() {
  const [places , setPlaces] = useState([])
  const emptyPlace = {
   name : '',
-  age :0,
   img: "",
   description: ""
 
@@ -21,7 +21,7 @@ const [selectedPlace, setSelectedPlace] = useState(emptyPlace)
    .then((response)=>response.json())
    .then((data)=>{
     setPlaces(data)
-    console.log(data)
+    
    })
    
  }
@@ -40,26 +40,26 @@ const [selectedPlace, setSelectedPlace] = useState(emptyPlace)
   .then(()=> { getPlaces()})
   }
 
-  const handleUpdate = (place) => {
-    fetch(url + "/place/" + place._id, {
-      method: "PUT",
-      headers: {
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify(place)
-    })
-    .then(() => { getPlaces()})
-  }
-  const selectPlace = (place) => {
-    setSelectedPlace(place)
-  }
+//   const handleUpdate = (place) => {
+//     fetch(url + "/place/" + place._id, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type":"application/json"
+//       },
+//       body: JSON.stringify(place)
+//     })
+//     .then(() => { getPlaces()})
+//   }
+//   const selectPlace = (place) => {
+//     setSelectedPlace(place)
+//   }
   
-  const  deletedPlace = (place)=>{
-  fetch(url + "/place/" + place._id , {
-    method: 'DELETE',
+//   const  deletedPlace = (place)=>{
+//   fetch(url + "/place/" + place._id , {
+//     method: 'DELETE',
   
-  }).then(()=> { getPlaces()})
-  }
+//   }).then(()=> { getPlaces()})
+//   }
 
 
   return (
@@ -70,13 +70,28 @@ const [selectedPlace, setSelectedPlace] = useState(emptyPlace)
       </Link>
       
       <Switch>
-        <Route exact path='/'>
-         <Display 
-         places={places}
-         selectPlace={selectPlace}
-         deletedPlace={deletedPlace}
-         />
-        </Route>
+        <Route 
+        exact
+         path="/"
+        render= {(rp) => 
+        <Display  
+        {...rp}
+        places={ places}
+        />}
+        />
+           {/* <Route
+            exact
+            path="/create"
+            render={(rp) => (
+              <Form
+                {...rp}
+                label="create"
+                place={emptyPlace}
+                handleSubmit={handleCreate}
+              />
+            )}
+          /> */}
+
       </Switch>
       
     </div>

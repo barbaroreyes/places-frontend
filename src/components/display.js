@@ -8,6 +8,9 @@ const Display = ({places}) => {
                      <h1>{item.name}</h1>
                     <img src={item.img}  alt={item.name}/>
                     <p>{item.description}</p>
+                    <button>edit</button>
+                    <button>delete</button>
+
                     </div>)})}
                    </div>
   )
